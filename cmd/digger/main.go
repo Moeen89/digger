@@ -16,8 +16,15 @@ import (
 	"strings"
 )
 
+func printEnvVars() {
+	fmt.Println(os.Environ())
+}
+
 func gitHubCI(lock utils.Lock) {
 	println("Using GitHub.")
+
+	printEnvVars()
+
 	githubRepositoryOwner := os.Getenv("GITHUB_REPOSITORY_OWNER")
 	if githubRepositoryOwner != "" {
 		utils.SendUsageRecord(githubRepositoryOwner, "log", "initialize")
@@ -27,17 +34,17 @@ func gitHubCI(lock utils.Lock) {
 
 	ghToken := os.Getenv("GITHUB_TOKEN")
 	if ghToken == "" {
-		fmt.Print("GITHUB_TOKEN is not defined")
+		fmt.Print("GITHUB_TOKEN is not defined\n")
 	}
 
 	ghContext := os.Getenv("GITHUB_CONTEXT")
 	if ghContext == "" {
-		reportErrorAndExit(githubRepositoryOwner, "GITHUB_CONTEXT is not defined", 2)
+		reportErrorAndExit(githubRepositoryOwner, "GITHUB_CONTEXT is not defined\n", 2)
 	}
 
 	parsedGhContext, err := models.GetGitHubContext(ghContext)
 	if err != nil {
-		reportErrorAndExit(githubRepositoryOwner, fmt.Sprintf("Failed to parse GitHub context. %s", err), 3)
+		reportErrorAndExit(githubRepositoryOwner, fmt.Sprintf("Failed to parse GitHub context. %s\n", err), 3)
 	}
 	println("GitHub context parsed successfully")
 
