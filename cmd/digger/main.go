@@ -16,14 +16,8 @@ import (
 	"strings"
 )
 
-func printEnvVars() {
-	fmt.Println(os.Environ())
-}
-
 func gitHubCI(lock utils.Lock) {
 	println("Using GitHub.")
-
-	printEnvVars()
 
 	githubRepositoryOwner := os.Getenv("GITHUB_REPOSITORY_OWNER")
 	if githubRepositoryOwner != "" {
