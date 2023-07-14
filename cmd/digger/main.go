@@ -31,6 +31,12 @@ func gitHubCI(lock utils.Lock) {
 		fmt.Print("GITHUB_TOKEN is not defined\n")
 	}
 
+	diggerGitHubToken := os.Getenv("DIGGER_GITHUB_TOKEN")
+	if diggerGitHubToken != "" {
+		fmt.Println("GITHUB_TOKEN has been overridden with DIGGER_GITHUB_TOKEN")
+		ghToken = diggerGitHubToken
+	}
+
 	ghContext := os.Getenv("GITHUB_CONTEXT")
 	if ghContext == "" {
 		reportErrorAndExit(githubRepositoryOwner, "GITHUB_CONTEXT is not defined\n", 2)
