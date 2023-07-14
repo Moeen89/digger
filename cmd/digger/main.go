@@ -27,7 +27,7 @@ func gitHubCI(lock utils.Lock) {
 
 	ghToken := os.Getenv("GITHUB_TOKEN")
 	if ghToken == "" {
-		reportErrorAndExit(githubRepositoryOwner, "GITHUB_TOKEN is not defined", 1)
+		fmt.Print("GITHUB_TOKEN is not defined")
 	}
 
 	ghContext := os.Getenv("GITHUB_CONTEXT")
